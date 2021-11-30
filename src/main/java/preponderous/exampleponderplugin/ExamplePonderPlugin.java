@@ -14,8 +14,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public final class ExamplePonderPlugin extends AbstractPonderPlugin {
-
     private static ExamplePonderPlugin instance;
+    private final String version = "v0.2-alpha-1";
 
     public static ExamplePonderPlugin getInstance() {
         return instance;
@@ -45,6 +45,21 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
         }
 
         return getPonderAPI().getCommandService().interpretCommand(sender, label, args);
+    }
+
+    @Override
+    public String getVersion() {
+        return version;
+    }
+
+    @Override
+    public boolean isVersionMismatched() {
+        String configVersion = this.getConfig().getString("version");
+        if (configVersion == null || this.getVersion() == null) {
+            return false;
+        } else {
+            return !configVersion.equalsIgnoreCase(this.getVersion());
+        }
     }
 
     private void initializeConfigService() {
