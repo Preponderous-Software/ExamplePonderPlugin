@@ -26,8 +26,6 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
         instance = this;
         ponderAPI_integrator = new PonderAPI_Integrator(this);
         toolbox = getPonderAPI().getToolbox();
-        initializeConfigService();
-        initializeConfigFile();
         registerEventHandlers();
         initializeCommandService();
         getPonderAPI().setDebug(false);
@@ -47,37 +45,16 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
         return getPonderAPI().getCommandService().interpretCommand(sender, label, args);
     }
 
-    @Override
     public String getVersion() {
         return version;
     }
 
-    @Override
     public boolean isVersionMismatched() {
         String configVersion = this.getConfig().getString("version");
         if (configVersion == null || this.getVersion() == null) {
             return false;
         } else {
             return !configVersion.equalsIgnoreCase(this.getVersion());
-        }
-    }
-
-    private void initializeConfigService() {
-        HashMap<String, Object> configOptions = new HashMap<>();
-        configOptions.put("debugMode", false);
-        getPonderAPI().getConfigService().initialize(configOptions);
-    }
-
-    private void initializeConfigFile() {
-        if (!(new File("./plugins/ExamplePonderPlugin/config.yml").exists())) {
-            getPonderAPI().getConfigService().saveMissingConfigDefaultsIfNotPresent();
-        }
-        else {
-            // pre load compatibility checks
-            if (isVersionMismatched()) {
-                getPonderAPI().getConfigService().saveMissingConfigDefaultsIfNotPresent();
-            }
-            reloadConfig();
         }
     }
 
