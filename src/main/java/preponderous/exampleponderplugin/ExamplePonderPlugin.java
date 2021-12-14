@@ -8,10 +8,8 @@ import preponderous.ponder.AbstractPonderPlugin;
 import preponderous.ponder.misc.PonderAPI_Integrator;
 import preponderous.ponder.misc.specification.ICommand;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public final class ExamplePonderPlugin extends AbstractPonderPlugin {
     private static ExamplePonderPlugin instance;
