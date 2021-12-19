@@ -4,10 +4,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import preponderous.exampleponderplugin.commands.DefaultCommand;
 import preponderous.exampleponderplugin.commands.HelpCommand;
+import preponderous.exampleponderplugin.services.LocalConfigService;
 import preponderous.ponder.AbstractPonderPlugin;
 import preponderous.ponder.misc.PonderAPI_Integrator;
 import preponderous.ponder.misc.specification.ICommand;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -24,6 +26,19 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
         instance = this;
         ponderAPI_integrator = new PonderAPI_Integrator(this);
         toolbox = getPonderAPI().getToolbox();
+
+        // create/load config
+        if (!(new File("./plugins/ExamplePonderPlugin/config.yml").exists())) {
+            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+        }
+        else {
+            // pre load compatibility checks
+            if (isVersionMismatched()) {
+                LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+            }
+            reloadConfig();
+        }
+
         registerEventHandlers();
         initializeCommandService();
         getPonderAPI().setDebug(false);
@@ -55,6 +70,11 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
             return !configVersion.equalsIgnoreCase(this.getVersion());
         }
     }
+
+    public boolean isDebugEnabled() {
+        return LocalConfigService.getInstance().getBoolean("debugMode");
+    }
+
 
     private void registerEventHandlers() {
         /*
