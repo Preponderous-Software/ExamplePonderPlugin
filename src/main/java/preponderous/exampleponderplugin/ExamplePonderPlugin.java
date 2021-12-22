@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public final class ExamplePonderPlugin extends AbstractPonderPlugin {
     private static ExamplePonderPlugin instance;
-    private final String version = "v0.2-alpha-1";
+    private final String pluginVersion = "v" + getDescription().getVersion();
 
     public static ExamplePonderPlugin getInstance() {
         return instance;
@@ -59,7 +59,7 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
     }
 
     public String getVersion() {
-        return version;
+        return pluginVersion;
     }
 
     public boolean isVersionMismatched() {
