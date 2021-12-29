@@ -7,6 +7,9 @@ import preponderous.ponder.misc.AbstractCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Daniel Stephenson
+ */
 public class HelpCommand extends AbstractCommand {
 
     private ArrayList<String> names = new ArrayList<>(Collections.singletonList("help"));

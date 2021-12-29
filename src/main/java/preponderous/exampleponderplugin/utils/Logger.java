@@ -2,6 +2,9 @@ package preponderous.exampleponderplugin.utils;
 
 import preponderous.exampleponderplugin.ExamplePonderPlugin;
 
+/**
+ * @author Daniel Stephenson
+ */
 public class Logger {
 
     private static Logger instance;
