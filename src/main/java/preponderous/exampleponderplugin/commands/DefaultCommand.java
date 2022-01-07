@@ -3,7 +3,7 @@ package preponderous.exampleponderplugin.commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import preponderous.exampleponderplugin.ExamplePonderPlugin;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.spigot.misc.AbstractCommand;
 
 /**
  * @author Daniel Stephenson

@@ -7,9 +7,10 @@ import preponderous.exampleponderplugin.commands.DefaultCommand;
 import preponderous.exampleponderplugin.commands.HelpCommand;
 import preponderous.exampleponderplugin.eventhandlers.JoinHandler;
 import preponderous.exampleponderplugin.services.LocalConfigService;
-import preponderous.ponder.AbstractPonderPlugin;
-import preponderous.ponder.misc.PonderAPI_Integrator;
-import preponderous.ponder.misc.specification.ICommand;
+import preponderous.ponder.minecraft.spigot.AbstractPonderPlugin;
+import preponderous.ponder.minecraft.spigot.misc.PonderAPI_Integrator;
+import preponderous.ponder.minecraft.spigot.misc.specification.ICommand;
+import preponderous.ponder.minecraft.spigot.tools.EventHandlerRegistry;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,7 +38,6 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
     public void onEnable() {
         instance = this;
         ponderAPI_integrator = new PonderAPI_Integrator(this);
-        toolbox = getPonderAPI().getToolbox();
 
         // create/load config
         if (!(new File("./plugins/ExamplePonderPlugin/config.yml").exists())) {
@@ -114,10 +114,11 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
      * Registers the event handlers of the plugin using Ponder.
      */
     private void registerEventHandlers() {
+        EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry(getPonderAPI());
         ArrayList<Listener> listeners = new ArrayList<>(Arrays.asList(
                 new JoinHandler()
         ));
-        getToolbox().getEventHandlerRegistry().registerEventHandlers(listeners, this);
+        eventHandlerRegistry.registerEventHandlers(listeners, this);
     }
 
     /**
