@@ -2,27 +2,19 @@ package preponderous.exampleponderplugin.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import preponderous.ponder.minecraft.spigot.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Daniel Stephenson
  */
-public class HelpCommand extends AbstractCommand {
+public class HelpCommand extends AbstractPluginCommand {
 
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("help"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("epp.help"));
-
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public HelpCommand() {
+        super(new ArrayList<>(List.of("help")), new ArrayList<>(List.of("epp.help")));
     }
 
     @Override

@@ -7,9 +7,8 @@ import preponderous.exampleponderplugin.commands.DefaultCommand;
 import preponderous.exampleponderplugin.commands.HelpCommand;
 import preponderous.exampleponderplugin.eventhandlers.JoinHandler;
 import preponderous.exampleponderplugin.services.LocalConfigService;
-import preponderous.ponder.minecraft.spigot.AbstractPonderPlugin;
-import preponderous.ponder.minecraft.spigot.misc.PonderAPI_Integrator;
-import preponderous.ponder.minecraft.spigot.misc.specification.ICommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
+import preponderous.ponder.minecraft.abs.PonderPlugin;
 import preponderous.ponder.minecraft.spigot.tools.EventHandlerRegistry;
 
 import java.io.File;
@@ -19,7 +18,7 @@ import java.util.Arrays;
 /**
  * @author Daniel Stephenson
  */
-public final class ExamplePonderPlugin extends AbstractPonderPlugin {
+public final class ExamplePonderPlugin extends PonderPlugin {
     private static ExamplePonderPlugin instance;
     private final String pluginVersion = "v" + getDescription().getVersion();
 
@@ -37,7 +36,6 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        ponderAPI_integrator = new PonderAPI_Integrator(this);
 
         // create/load config
         if (!(new File("./plugins/ExamplePonderPlugin/config.yml").exists())) {
@@ -125,7 +123,7 @@ public final class ExamplePonderPlugin extends AbstractPonderPlugin {
      * Initializes Ponder's command service with the plugin's commands.
      */
     private void initializeCommandService() {
-        ArrayList<ICommand> commands = new ArrayList<>(Arrays.asList(
+        ArrayList<AbstractPluginCommand> commands = new ArrayList<>(Arrays.asList(
                 new HelpCommand()
         ));
         getPonderAPI().getCommandService().initialize(commands, "That command wasn't found.");

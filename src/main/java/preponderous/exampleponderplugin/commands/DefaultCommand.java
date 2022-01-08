@@ -3,12 +3,19 @@ package preponderous.exampleponderplugin.commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import preponderous.exampleponderplugin.ExamplePonderPlugin;
-import preponderous.ponder.minecraft.spigot.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Daniel Stephenson
  */
-public class DefaultCommand extends AbstractCommand {
+public class DefaultCommand extends AbstractPluginCommand {
+
+    public DefaultCommand() {
+        super(new ArrayList<>(List.of("default")), new ArrayList<>(List.of("epp.default")));
+    }
 
     @Override
     public boolean execute(CommandSender commandSender) {
