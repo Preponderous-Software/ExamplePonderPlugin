@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Daniel Stephenson
+ * @author Daniel McCoy Stephenson
  */
 public class HelpCommand extends AbstractPluginCommand {
 

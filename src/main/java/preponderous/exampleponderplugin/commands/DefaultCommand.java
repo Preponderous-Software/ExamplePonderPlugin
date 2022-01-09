@@ -6,15 +6,16 @@ import preponderous.exampleponderplugin.ExamplePonderPlugin;
 import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Daniel Stephenson
+ * @author Daniel McCoy Stephenson
  */
 public class DefaultCommand extends AbstractPluginCommand {
 
     public DefaultCommand() {
-        super(new ArrayList<>(List.of("default")), new ArrayList<>(List.of("epp.default")));
+        super(new ArrayList<>(Arrays.asList("default")), new ArrayList<>(Arrays.asList("epp.default")));
     }
 
     @Override

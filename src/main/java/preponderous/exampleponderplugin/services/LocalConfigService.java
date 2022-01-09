@@ -13,7 +13,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import preponderous.exampleponderplugin.ExamplePonderPlugin;
 
 /**
- * @author Daniel Stephenson
+ * @author Daniel McCoy Stephenson
  */
 public class LocalConfigService {
 

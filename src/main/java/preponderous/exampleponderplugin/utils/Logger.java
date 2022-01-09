@@ -3,7 +3,7 @@ package preponderous.exampleponderplugin.utils;
 import preponderous.exampleponderplugin.ExamplePonderPlugin;
 
 /**
- * @author Daniel Stephenson
+ * @author Daniel McCoy Stephenson
  */
 public class Logger {
 
