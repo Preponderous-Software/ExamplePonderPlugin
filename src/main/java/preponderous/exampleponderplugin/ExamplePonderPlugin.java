@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * @author Daniel Stephenson
+ * @author Daniel McCoy Stephenson
  */
 public final class ExamplePonderPlugin extends PonderPlugin {
     private static ExamplePonderPlugin instance;
