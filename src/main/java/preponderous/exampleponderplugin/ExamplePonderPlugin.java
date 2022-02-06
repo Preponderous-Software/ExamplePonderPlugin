@@ -7,9 +7,11 @@ import preponderous.exampleponderplugin.commands.DefaultCommand;
 import preponderous.exampleponderplugin.commands.HelpCommand;
 import preponderous.exampleponderplugin.eventhandlers.JoinHandler;
 import preponderous.exampleponderplugin.services.LocalConfigService;
-import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
-import preponderous.ponder.minecraft.abs.PonderPlugin;
-import preponderous.ponder.minecraft.spigot.tools.EventHandlerRegistry;
+import preponderous.ponder.minecraft.bukkit.PonderMC;
+import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
+import preponderous.ponder.minecraft.bukkit.abs.PonderBukkitPlugin;
+import preponderous.ponder.minecraft.bukkit.services.CommandService;
+import preponderous.ponder.minecraft.bukkit.tools.EventHandlerRegistry;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,9 +20,10 @@ import java.util.Arrays;
 /**
  * @author Daniel McCoy Stephenson
  */
-public final class ExamplePonderPlugin extends PonderPlugin {
+public final class ExamplePonderPlugin extends PonderBukkitPlugin {
     private static ExamplePonderPlugin instance;
     private final String pluginVersion = "v" + getDescription().getVersion();
+    private final CommandService commandService = new CommandService((PonderMC) getPonder());
 
     /**
      * This can be used to get the instance of the main class that is managed by itself.
@@ -36,22 +39,30 @@ public final class ExamplePonderPlugin extends PonderPlugin {
     @Override
     public void onEnable() {
         instance = this;
-
-        // create/load config
-        if (!(new File("./plugins/ExamplePonderPlugin/config.yml").exists())) {
-            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
-        }
-        else {
-            // pre load compatibility checks
-            if (isVersionMismatched()) {
-                LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
-            }
-            reloadConfig();
-        }
+        initializeConfig();
 
         registerEventHandlers();
         initializeCommandService();
-        getPonderAPI().setDebug(false);
+    }
+
+    private void initializeConfig() {
+        if (configFileExists()) {
+            performCompatibilityChecks();
+        }
+        else {
+            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+        }
+    }
+
+    private boolean configFileExists() {
+        return new File("./plugins/" + getName() + "/config.yml").exists();
+    }
+
+    private void performCompatibilityChecks() {
+        if (isVersionMismatched()) {
+            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+        }
+        reloadConfig();
     }
 
     /**
@@ -76,7 +87,7 @@ public final class ExamplePonderPlugin extends PonderPlugin {
             return defaultCommand.execute(sender);
         }
 
-        return getPonderAPI().getCommandService().interpretCommand(sender, label, args);
+        return commandService.interpretAndExecuteCommand(sender, label, args);
     }
 
     /**
@@ -112,7 +123,7 @@ public final class ExamplePonderPlugin extends PonderPlugin {
      * Registers the event handlers of the plugin using Ponder.
      */
     private void registerEventHandlers() {
-        EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry(getPonderAPI());
+        EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry();
         ArrayList<Listener> listeners = new ArrayList<>(Arrays.asList(
                 new JoinHandler()
         ));
@@ -126,6 +137,6 @@ public final class ExamplePonderPlugin extends PonderPlugin {
         ArrayList<AbstractPluginCommand> commands = new ArrayList<>(Arrays.asList(
                 new HelpCommand()
         ));
-        getPonderAPI().getCommandService().initialize(commands, "That command wasn't found.");
+        commandService.initialize(commands, "That command wasn't found.");
     }
 }
