@@ -40,7 +40,6 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
     public void onEnable() {
         instance = this;
         initializeConfig();
-
         registerEventHandlers();
         initializeCommandService();
     }
@@ -81,6 +80,7 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
      * @param args Arguments of the core command. Often sub-commands.
      * @return A boolean indicating whether the execution of the command was successful.
      */
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
             DefaultCommand defaultCommand = new DefaultCommand();
