@@ -6,7 +6,7 @@
 
     <groupId>preponderous</groupId>
     <artifactId>ExamplePonderPlugin</artifactId>
-    <version>1.0</version>
+    <version>1.1-alpha-1</version>
     <packaging>jar</packaging>
 
     <name>ExamplePonderPlugin</name>

@@ -53,17 +53,6 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
         }
     }
 
-    private boolean configFileExists() {
-        return new File("./plugins/" + getName() + "/config.yml").exists();
-    }
-
-    private void performCompatibilityChecks() {
-        if (isVersionMismatched()) {
-            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
-        }
-        reloadConfig();
-    }
-
     /**
      * This runs when the server stops.
      */
@@ -117,6 +106,17 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
      */
     public boolean isDebugEnabled() {
         return LocalConfigService.getInstance().getBoolean("debugMode");
+    }
+
+    private boolean configFileExists() {
+        return new File("./plugins/" + getName() + "/config.yml").exists();
+    }
+
+    private void performCompatibilityChecks() {
+        if (isVersionMismatched()) {
+            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+        }
+        reloadConfig();
     }
 
     /**
