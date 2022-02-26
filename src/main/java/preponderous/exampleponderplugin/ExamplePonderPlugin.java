@@ -7,7 +7,6 @@ import preponderous.exampleponderplugin.commands.DefaultCommand;
 import preponderous.exampleponderplugin.commands.HelpCommand;
 import preponderous.exampleponderplugin.eventhandlers.JoinHandler;
 import preponderous.exampleponderplugin.services.LocalConfigService;
-import preponderous.ponder.minecraft.bukkit.PonderMC;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.minecraft.bukkit.abs.PonderBukkitPlugin;
 import preponderous.ponder.minecraft.bukkit.services.CommandService;
