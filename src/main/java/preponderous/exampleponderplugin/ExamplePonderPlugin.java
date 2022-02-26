@@ -23,7 +23,7 @@ import java.util.Arrays;
 public final class ExamplePonderPlugin extends PonderBukkitPlugin {
     private static ExamplePonderPlugin instance;
     private final String pluginVersion = "v" + getDescription().getVersion();
-    private final CommandService commandService = new CommandService((PonderMC) getPonder());
+    private final CommandService commandService = new CommandService(getPonder());
 
     /**
      * This can be used to get the instance of the main class that is managed by itself.
