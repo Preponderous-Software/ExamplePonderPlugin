@@ -44,15 +44,6 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
         initializeCommandService();
     }
 
-    private void initializeConfig() {
-        if (configFileExists()) {
-            performCompatibilityChecks();
-        }
-        else {
-            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
-        }
-    }
-
     /**
      * This runs when the server stops.
      */
@@ -106,6 +97,15 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
      */
     public boolean isDebugEnabled() {
         return LocalConfigService.getInstance().getBoolean("debugMode");
+    }
+
+    private void initializeConfig() {
+        if (configFileExists()) {
+            performCompatibilityChecks();
+        }
+        else {
+            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+        }
     }
 
     private boolean configFileExists() {
