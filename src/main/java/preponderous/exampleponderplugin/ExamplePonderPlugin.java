@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import preponderous.exampleponderplugin.commands.DefaultCommand;
 import preponderous.exampleponderplugin.commands.HelpCommand;
 import preponderous.exampleponderplugin.eventhandlers.JoinHandler;
-import preponderous.exampleponderplugin.services.LocalConfigService;
+import preponderous.exampleponderplugin.services.ConfigService;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.minecraft.bukkit.abs.PonderBukkitPlugin;
 import preponderous.ponder.minecraft.bukkit.services.CommandService;
@@ -20,24 +20,15 @@ import java.util.Arrays;
  * @author Daniel McCoy Stephenson
  */
 public final class ExamplePonderPlugin extends PonderBukkitPlugin {
-    private static ExamplePonderPlugin instance;
     private final String pluginVersion = "v" + getDescription().getVersion();
     private final CommandService commandService = new CommandService(getPonder());
-
-    /**
-     * This can be used to get the instance of the main class that is managed by itself.
-     * @return The managed instance of the main class.
-     */
-    public static ExamplePonderPlugin getInstance() {
-        return instance;
-    }
+    private final ConfigService configService = new ConfigService(this);
 
     /**
      * This runs when the server starts.
      */
     @Override
     public void onEnable() {
-        instance = this;
         initializeConfig();
         registerEventHandlers();
         initializeCommandService();
@@ -62,7 +53,7 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            DefaultCommand defaultCommand = new DefaultCommand();
+            DefaultCommand defaultCommand = new DefaultCommand(this);
             return defaultCommand.execute(sender);
         }
 
@@ -95,7 +86,7 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
      * @return Whether debug is enabled.
      */
     public boolean isDebugEnabled() {
-        return LocalConfigService.getInstance().getBoolean("debugMode");
+        return configService.getBoolean("debugMode");
     }
 
     private void initializeConfig() {
@@ -103,7 +94,7 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
             performCompatibilityChecks();
         }
         else {
-            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+            configService.saveMissingConfigDefaultsIfNotPresent();
         }
     }
 
@@ -113,7 +104,7 @@ public final class ExamplePonderPlugin extends PonderBukkitPlugin {
 
     private void performCompatibilityChecks() {
         if (isVersionMismatched()) {
-            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+            configService.saveMissingConfigDefaultsIfNotPresent();
         }
         reloadConfig();
     }
